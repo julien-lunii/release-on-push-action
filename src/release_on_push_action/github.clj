@@ -106,12 +106,20 @@
       (str/split #"\n")
       first))
 
+(defn commit-ticket [commit]
+  (-> (re-find #"Closes (?<ticketlink>[a-zA-Z0-9:/.\-=\?&]*)" (get-in commit [:commit :message] ""))
+      (second)))
+
 (defn commit-summary [commit]
-  (format "- [%s] %s" (subs (:sha commit) 0 8) (commit-title commit)))
+
+    (def ticket (commit-ticket commit))
+    (def ticket (if (nil? ticket) "", (str " (" ticket ")")))
+
+  (format "- %s%s" (commit-title commit) (str ticket)))
 
 (comment
   ;; used for testing
-  (def context {:repo "rymndhng/release-on-push-action"
+  (def context {:repo "julien-lunii/release-on-push-action"
                 :github/api-url "https://api.github.com"
                 :sha "167c690247d0933acde636d72352bcd67e33724b"})
 

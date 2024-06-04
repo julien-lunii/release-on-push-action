@@ -169,7 +169,7 @@
       (println (prepare-key-value "tag_name" (:tag_name release-data)))
       (println (prepare-key-value "version" (:name release-data)))
       (println (prepare-key-value "upload_url" (:upload_url release-data)))
-      (println (prepare-key-value "body" (str/escape (:body release-data) char-escape-string)))))) 
+      (println (prepare-key-value "body" (:body (str/escape release-data char-escape-string))))))) 
 
 (defn -main [& args]
   (let [_            (println "Starting process...")

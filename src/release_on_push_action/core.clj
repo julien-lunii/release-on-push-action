@@ -119,7 +119,7 @@
 
                ;; Do not include our custom commit summary if using Github Release Notes
                (when-not (:input/use-github-release-notes context)
-                 (printf "### Commits\n\n")
+                 (printf "**Commits**\n\n")
                  (doseq [commit commits-since-last-release]
                    (println commit))))]
     {:tag_name               tag-name
